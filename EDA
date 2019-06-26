@@ -1,0 +1,5 @@
+/* EDA data analysis*/
+
+proc means data=ex.loan n nmiss mean;
+	var delinq debtinc ;
+run;
