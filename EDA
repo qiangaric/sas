@@ -3,3 +3,23 @@
 proc means data=ex.loan n nmiss mean;
 	var delinq debtinc ;
 run;
+
+
+
+/*Data Exploration*/
+proc contents data=ex.loan ;
+run;
+
+/*是否有缺失值*/
+proc means data=ex.loan  n nmiss;
+
+/*频率分布*/
+proc freq data=ex.loan;
+tables DEBTINC DELINQ Education Ploan Reason YROPEN creditlevel;
+run;
+
+/*drop 列已经删除相应行*/
+data cluster.creditcard1 (drop = MonthlyIncome1);
+set cluster.creditcard;
+if numberofdependents = "Goo" or numberofdependents="Bad" then delete;
+run;
