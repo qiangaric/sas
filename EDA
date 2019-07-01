@@ -23,3 +23,46 @@ data cluster.creditcard1 (drop = MonthlyIncome1);
 set cluster.creditcard;
 if numberofdependents = "Goo" or numberofdependents="Bad" then delete;
 run;
+
+
+/*  数字型变量的EDA分析 （检查异常值）*/
+
+proc univariate data=ex.loan ;
+var YROPEN DEBTINC;
+run; 
+
+/* 处理异常值，*/
+data cluster.creditcard2;
+set cluster.creditcard1;
+if revolvingutilizationofunsecuredl >5 then delete;
+if 5 gt revolvingutilizationofunsecuredl >1  then revolvingutilizationofunsecuredl = 0.32;
+run;
+
+/* 删除异常值 */
+data cluster.creditcard3;
+set cluster.creditcard2;
+if NumberOfTime30_59DaysPastDueNotW >=90 then delete;
+if NumberOfTime60_89DaysPastDueNotW >=90 then delete;
+if NumberOfTimes90DaysLate >=90 then delete;
+run;
+
+/*时间处理*/
+put把数字变成文本，input则反之
+
+Options yearcutoff=1900;
+Data palmulae;
+	Input @1 date1 date9. ;
+	format date1 mmddyy10.;
+datalines;
+28Jul14
+11Nov19
+; 
+run; 
+proc print data=palmulae; run;
+
+/* 获取数据集的前三行数据 */
+data class2;
+	set sashelp.class(obs=3);
+run;
+proc print ;
+run;
