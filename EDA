@@ -10,8 +10,22 @@ run;
 proc contents data=ex.loan ;
 run;
 
-/*是否有缺失值*/
+/*是否有缺失值 以及缺失值处理*/
 proc means data=ex.loan  n nmiss;
+data bc;
+	set test;
+	array char _character_;
+	array numr _numeric_;
+	do over char;
+	if char eq "" then char="null";
+	end;
+	do over numr;
+	if numr eq . then numr=0;
+	end;
+	run;
+	proc print data =bc;
+	run;
+
 
 /*频率分布*/
 proc freq data=ex.loan;
