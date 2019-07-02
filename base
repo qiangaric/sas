@@ -1,0 +1,18 @@
+/* sas变量引用必须是双引号*/
+%let town = Chicago;
+
+data work.city;
+	input city $ state $;
+	datalines;
+ Detroit MI
+ Chicago IL
+ ;
+run;
+
+data work.city2 ;
+	set work.city;
+	if  city = "&town";
+run;
+
+proc print data=work.city2;
+run;
