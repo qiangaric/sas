@@ -16,3 +16,10 @@ run;
 
 proc print data=work.city2;
 run;
+
+
+/* 数据导入 */
+PROC IMPORT DATAFILE="c:\sas\ego.csv" OUT=jeeshim.egov DBMS=CSV REPLACE;
+   GETNAMES=YES;
+   DATAROW=2;
+RUN;
