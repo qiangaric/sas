@@ -23,3 +23,17 @@ PROC IMPORT DATAFILE="c:\sas\ego.csv" OUT=jeeshim.egov DBMS=CSV REPLACE;
    GETNAMES=YES;
    DATAROW=2;
 RUN;
+
+/*  drop 列*/
+
+  data scores;
+    LENGTH name $10;
+   input name s1 s2 s3;
+   total = sum(s1,s2,s3);
+drop s1 s2 s3;
+datalines;
+zhangsan 32 23 23
+lisi 43 64 34
+
+proc print;
+run;
