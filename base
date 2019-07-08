@@ -37,3 +37,10 @@ lisi 43 64 34
 
 proc print;
 run;
+/*需要保留的变量（keep）,与drop相反 */
+data average;
+set scores;
+keep name total mean;
+mean=total/3;
+proc print;
+run;
