@@ -44,3 +44,34 @@ keep name total mean;
 mean=total/3;
 proc print;
 run;
+
+/* 删除行 delete*/
+
+data score1;
+set scores;
+ave = mean(s1,s2,s3);
+if ave < 80 then do;
+	 delete;
+end;
+proc print;
+run;
+
+/* 使用数组 */
+
+data a;
+array index[4] ind1-ind4(3.7 4.56 0 7.8);
+array test{4} t1-t4;
+array ntest{4} nt1-nt4;
+input num test[*];
+do i=1 to 4;
+ if test{i}>index[i] then ntest[i]=1;
+ else ntest[i] = 0;
+ end;
+ drop num ind1-ind4 i;
+datalines;
+11 2.9 7.6 7 7.6
+12 2.5 0 8.7 9.9
+13 3.8 4.1 9.2 6.9
+proc print ;
+run;
+
